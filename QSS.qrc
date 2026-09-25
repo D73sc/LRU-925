@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MyQss.qss</file>
+        <file>Down.svg</file>
+        <file>Up.svg</file>
+        <file>ManualToAuto.svg</file>
+        <file>RapidStop.svg</file>
+        <file>Reset.svg</file>
+        <file>Initial.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <!-- 矩形部分 -->
+        <rect x="30" y="10" width="40" height="50"
+              fill="none" stroke="black" stroke-width="4"/>
+        <!-- 三角形部分（箭头底部） -->
+        <polygon points="20,60 50,90 80,60"
+                 fill="none" stroke="black" stroke-width="4" stroke-linejoin="round"/>
+    </svg>
