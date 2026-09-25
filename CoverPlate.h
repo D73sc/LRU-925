@@ -44,6 +44,7 @@ public:
 
     QSettings * iniReadPOS;
 
+
 public slots:
 
     //对应调度系统任务信号的执行槽函数
@@ -76,6 +77,9 @@ public slots:
 
     // 确认门流程的下一步
     void confirmDoorNextStep();
+
+    //封门初始位置判断
+    bool isDoorInitialPositionReady();
 
 signals:
 

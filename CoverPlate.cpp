@@ -1,4 +1,5 @@
 #include "CoverPlate.h"
+#include <cmath>
 CoverPlate::CoverPlate(ZMotionControl* zm, QObject *parent) : QObject(parent), m_zm(zm)
 {
     m_TaskStatus.sys =eSubSystem::CoverPlate;
@@ -639,4 +640,29 @@ void CoverPlate::emergencyStop()
 void CoverPlate::STOPAllFSMs()
 {
     stopAllFSMs();
+}
+
+
+bool CoverPlate::isDoorInitialPositionReady()
+{
+    if (!m_zm || !m_zm->GetConnectStatus())
+        return false;
+
+    // 纵移5、6；横移7、8；手指9、10；托举11
+    const int axes[] = {5, 6, 7, 8, 9, 10, 11};
+    const float targets[] = {81, 47, 0, 0, 12, 12, 18};
+    const float tolerance = 0.1f;
+
+    for (int i = 0; i < 7; ++i) {
+        if (!m_zm->IsSingleIdle(axes[i]))
+            return false;
+
+        const float pos = m_zm->GetAxisDpos(axes[i]);
+        if (!std::isfinite(pos) ||
+            !(qAbs(pos - targets[i]) < tolerance)) {
+            return false;
+        }
+    }
+
+    return true;
 }
