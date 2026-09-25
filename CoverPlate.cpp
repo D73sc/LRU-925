@@ -1,5 +1,5 @@
 #include "CoverPlate.h"
-#include <cmath>
+#include <cmath>//新加
 CoverPlate::CoverPlate(ZMotionControl* zm, QObject *parent) : QObject(parent), m_zm(zm)
 {
     m_TaskStatus.sys =eSubSystem::CoverPlate;
@@ -25,14 +25,14 @@ CoverPlate::CoverPlate(ZMotionControl* zm, QObject *parent) : QObject(parent), m
     connect(&m_takePlateFsm->getFrontFSM(), &TakePlateFSMFront::sigStateChanged, this, &CoverPlate::onFsmStateChanged);
     connect(&m_coverPlateFsm->getFrontFSM(), &CoverPlateFSMFront::sigStateChanged, this, &CoverPlate::onFsmStateChanged);
     connect(&m_coverFloorFsm->getFrontFSM(), &CoverFloorFSMFront::sigStateChanged, this, &CoverPlate::onFsmStateChanged);
-
+    //新加
     connect(&m_takeFloorFsm->getFrontFSM(),&TakeFloorFSMFront::sigStepConfirmationRequired,this,
         [this](const QString& currentState,
                const QString& nextState)
         {
             emit sigDoorStepConfirmationRequired(true,currentState,nextState);
         });
-
+    //新加
     connect(&m_coverFloorFsm->getFrontFSM(),&CoverFloorFSMFront::sigStepConfirmationRequired,this,
         [this](const QString& currentState,
                const QString& nextState)
@@ -258,7 +258,7 @@ void CoverPlate::CoverPlateTask2()
 //             iscoverFloorFsmOpen = true;}});
 // }
 
-// 取封门
+// 取封门，新修
 void CoverPlate::TakeSealDoor()
 {
     stopAllFSMs();
@@ -295,7 +295,7 @@ void CoverPlate::FixPlate()
     iscoverPlateFsmOpen = true;
 }
 
-// 盖封门
+// 盖封门，新修
 void CoverPlate::FixSealDoor()
 {
     // 检查前置条件
@@ -309,7 +309,7 @@ void CoverPlate::FixSealDoor()
     m_coverFloorFsm->start();//盖盖板完成后，开启盖封门状态机
     iscoverFloorFsmOpen = true;
 }
-
+//新加
 void CoverPlate::confirmDoorNextStep()
 {
     if (istakeFloorFsmOpen) {
@@ -326,7 +326,7 @@ void CoverPlate::confirmDoorNextStep()
     }
 }
 
-// 停止所有状态机
+// 停止所有状态机，新修
 void CoverPlate::stopAllFSMs()
 {
     // 停止所有状态机
@@ -380,7 +380,7 @@ void CoverPlate::onFsmStateChanged(const QString& stateName)
     }
     //else if (stateName == "CoverFloorCompleted") emit sigSymbolChanged(CoverPlateSymbol::CoverDoorComplete);
     //else if (stateName == "TakeFloorCompleted") emit sigSymbolChanged(CoverPlateSymbol::TakeDoorComplete);
-
+    //新修
     else if (stateName == "CoverFloorCompleted") {
         m_eventCheckTimer->stop();
         m_statusMonitorTimer->stop();
@@ -642,7 +642,7 @@ void CoverPlate::STOPAllFSMs()
     stopAllFSMs();
 }
 
-
+//新加
 bool CoverPlate::isDoorInitialPositionReady()
 {
     if (!m_zm || !m_zm->GetConnectStatus())

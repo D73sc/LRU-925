@@ -19,7 +19,6 @@
 #include<QSettings>
 
 
-
 namespace GlobalMotorPos {
 
 static float coverPlatePos[4] = {0.0f};
@@ -139,7 +138,7 @@ struct ForwardLongitudinalForBorrowDone{};
 struct ForwardLongitudinalForCenterBorrowDone{};
 struct LongitudinalMoveto50Done{};
 
-// 半自动流程确认守卫
+// 半自动流程确认守卫（新加）
 struct WaitForOperatorConfirm
 {
     template <class FSM, class Event, class SourceState, class TargetState>
@@ -887,7 +886,7 @@ class BaseFSM_QObject : public QObject {
 signals:
     void sigStateChanged(const QString& stateName);
 
-    void sigStepConfirmationRequired(const QString& currentState,const QString& nextState);
+    void sigStepConfirmationRequired(const QString& currentState,const QString& nextState);//新加
 
 public:
     explicit BaseFSM_QObject(QObject* parent = nullptr, ZMotionControl* zm = nullptr, DMDetected* dm = nullptr)
@@ -904,7 +903,7 @@ class BaseFSM : public BaseFSM_QObject, public boost::msm::front::state_machine_
 public:
     BaseFSM(QObject* parent = nullptr, ZMotionControl* zm = nullptr, DMDetected* dm = nullptr)
         : BaseFSM_QObject(parent, zm, dm) {}
-
+    //新加907-929
     bool m_stepConfirmEnabled = false;
     bool m_waitingStepConfirmation = false;
     bool m_stepConfirmed = false;
@@ -961,7 +960,7 @@ public:
     // 初始状态
     typedef Lowering initial_state;
 
-    // 状态转换表
+    // 状态转换表（新修加了守卫条件）
     struct transition_table : boost::mpl::vector5<
                                   // 下降至39[防止封门压线]-> 正向横移至1120
                                   boost::msm::front::Row<Lowering, LoweringDone, ForwardTransverseMovement,boost::msm::front::none, WaitForOperatorConfirm>,
@@ -1074,7 +1073,7 @@ public:
     // 初始状态
     typedef MyRecover initial_state;
 
-    // 状态转换表
+    // 状态转换表（新加守卫条件）
     struct transition_table : boost::mpl::vector10<
                                   // 恢复机构初始 -> 手指松开至10
                                   boost::msm::front::Row<MyRecover, MyRecoverDone, FingerReleasing,

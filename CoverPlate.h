@@ -75,10 +75,10 @@ public slots:
 
     void STOPAllFSMs();
 
-    // 确认门流程的下一步
+    // 确认门流程的下一步，新加
     void confirmDoorNextStep();
 
-    //封门初始位置判断
+    //封门初始位置判断，新加
     bool isDoorInitialPositionReady();
 
 signals:
@@ -87,7 +87,7 @@ signals:
     void sigSymbolChanged(CoverPlateSymbol symbol);
     void UpdateSystemInfo(QString str);
 
-    // takeDoor=true：取封门；false：盖封门
+    // takeDoor=true：取封门；false：盖封门，新加
     void sigDoorStepConfirmationRequired(bool takeDoor,const QString& currentState,const QString& nextState);
 
 private:

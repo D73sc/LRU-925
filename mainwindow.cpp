@@ -380,11 +380,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //取盖板
     connect(m_coverPlate, &CoverPlate::sigSymbolChanged, this, &MainWindow::onCoverPlateSymbolChanged);
 
-    //接收“等待确认”信号
-    connect(
-        m_coverPlate,
-        &CoverPlate::sigDoorStepConfirmationRequired,
-        this,
+    //接收“等待确认”信号，新加
+    connect(m_coverPlate,&CoverPlate::sigDoorStepConfirmationRequired,this,
         [this](bool takeDoor,
                const QString& currentState,
                const QString& nextState)
@@ -934,7 +931,7 @@ void MainWindow::onLevelSymbolChanged(LevelSymbol symbol)
     }
 }
 
-//取盖板机构
+//取盖板机构，新修
 void MainWindow::onCoverPlateSymbolChanged(CoverPlateSymbol symbol) {
     QString baseStyle = "border-radius: 7px; border: 2px solid black;background-color: white;";
     resetCoverPlateSymbol();
@@ -2768,7 +2765,7 @@ void MainWindow::on_btn_CheckDetach_clicked()
 }
 
 
-//取盖板机构
+//取盖板机构,新修
 void MainWindow::on_btn_OpenDoor_clicked(){
     //m_coverPlate->TakeSealDoor();
     // 当前已经到位，本次点击表示确认下一步
@@ -2805,7 +2802,7 @@ void MainWindow::on_btn_TakePlate_clicked(){
     m_coverPlate->TakePlate();
 }
 
-
+//新修
 void MainWindow::on_btn_CloseDoor_clicked(){
     //m_coverPlate->FixSealDoor();
     // 当前已经到位，本次点击表示确认下一步

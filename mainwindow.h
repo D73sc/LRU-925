@@ -792,7 +792,7 @@ private:
     LevelingSystem *m_levelingSystem;
     MainLift *m_mainLift;
     CoverPlate *m_coverPlate;
-    //新加门半自动流程是否正在等待按钮确认
+    //新加门半自动流程是否正在等待按钮确认，新加
     bool m_openDoorWaitingConfirm = false;
     bool m_closeDoorWaitingConfirm = false;
 
