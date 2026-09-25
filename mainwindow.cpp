@@ -2782,15 +2782,10 @@ void MainWindow::on_btn_OpenDoor_clicked(){
         return;
     }
 
-    // 只在程序启动后的首次启动时检查
-    if (m_needDoorInitialCheck) {
-        if (!m_coverPlate->isDoorInitialPositionReady()) {
-            UpdateUILog("封门位置不对，请将封门移动到规定位置");
-            return;
-        }
-
-        // 检查通过，后面不再检查
-        m_needDoorInitialCheck = false;
+    // 每轮首次启动时检查
+    if (!m_coverPlate->isDoorInitialPositionReady()) {
+        UpdateUILog("封门位置不对，请将封门移动到规定位置");
+        return;
     }
 
     // 第一次点击，启动半自动取封门

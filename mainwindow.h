@@ -985,7 +985,6 @@ private:
     // 当前使用的工装电机组：0=片架，1=灯箱
     int m_fixtureGroup = 0;
 
-    bool m_needDoorInitialCheck = true;
 
 signals:
     void UpdateUI(QString str);
